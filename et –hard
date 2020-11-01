@@ -1,0 +1,11 @@
+[33mcommit ff9440e0a517eff4d6efcf80f1afc40f88f0dff0[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Mate Rusz <ruszmate33@gmail.com>
+Date:   Fri Oct 30 23:30:30 2020 +0100
+
+    links at index working, entry already renders basic text
+
+[33mcommit a7e8a75ca77f1fbd58a784e59a6d85ac07db0e25[m
+Author: Mate Rusz <ruszmate33@gmail.com>
+Date:   Fri Oct 30 23:19:50 2020 +0100
+
+    first

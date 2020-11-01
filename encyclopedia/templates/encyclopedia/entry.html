@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>All Pages</h1>
-        {{ entry }} 
+    <h1>Entry</h1>
+    {% if entry == None %}
+        <p>Sorry, entry not found.</p>
+    {% else %}
+        {{ entry }}
+    {% endif %} 
+
 {% endblock %}
