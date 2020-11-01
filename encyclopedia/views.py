@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 from . import util
 
@@ -11,7 +14,11 @@ def index(request):
     })
 
 def entry(request, title):
+    if request.method == 'POST':
+        title = request.POST.get("q")
     entry = util.get_entry(title)
+    print(f"entry: {entry}")
     return render(request, "encyclopedia/entry.html", {
-        "entry":entry,
+        "title": title,
+        "entry": entry,
     })
