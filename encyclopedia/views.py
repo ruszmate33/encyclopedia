@@ -16,8 +16,18 @@ def index(request):
 def entry(request, title):
     if request.method == 'POST':
         title = request.POST.get("q")
+        print(f"POST: {request.POST}")
     entry = util.get_entry(title)
     print(f"entry: {entry}")
+    return render(request, "encyclopedia/entry.html", {
+        "title": title,
+        "entry": entry,
+    })
+
+def search(request):
+    if request.method == 'POST':
+        title = request.POST.get("q")
+        print(f"POST: {request.POST}")
     return render(request, "encyclopedia/entry.html", {
         "title": title,
         "entry": entry,
