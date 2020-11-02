@@ -1,19 +1,36 @@
 from django.http import request
-from encyclopedia.util import list_entries
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from markdown2 import Markdown
 from random import randint
 
-
 from . import util
+from .forms import NewPageForm
 
 markdowner = Markdown()
 
+def createNewPage(request):
+    if request.method == "POST":
+        title = request.POST.get('title', None)
+        content = request.POST.get('entry', None)
+        print(f"title: {title}")
+        print(f"markdown: {content}")
+        if util.entry_exists(title):
+            return render(request, "encyclopedia/createNewPage.html", {
+                    "message": f"Error, page {title} already exist. Try to edit it!",
+                    })
+        util.save_entry(title, content)
+        
+        return HttpResponseRedirect(reverse("entry", kwargs={"title":title}))
+    else:
+        form = NewPageForm()
+        return render(request, "encyclopedia/createNewPage.html", {
+                    "form":form,
+                    })
 
 def random(request):
-    entries = list_entries()
+    entries = util.list_entries()
     title = entries[randint(0, len(entries)-1)]
 
     return HttpResponseRedirect(reverse("entry", kwargs={"title":title}))
@@ -43,7 +60,7 @@ def entry(request, title):
 def search(request):
     if request.method == 'POST':
         query = request.POST.get('q', None)
-        entries = list_entries()
+        entries = util.list_entries()
         results = []
         for title in entries:
             # full match
