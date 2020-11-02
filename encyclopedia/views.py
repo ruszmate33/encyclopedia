@@ -14,9 +14,12 @@ def index(request):
         "entries": util.list_entries()
     })
 
-def entry(request, title=None):
+
+def entry(request, title):
     entry = util.get_entry(title)
-    print(f"entry: {entry}")
+    if entry == None:
+        title = f"Not found: {title}"
+    
     return render(request, "encyclopedia/entry.html", {
         "title": title,
         "entry": entry,
@@ -28,9 +31,14 @@ def search(request):
         query = request.POST.get('q', None)
         entries = list_entries()
         results = []
-        for entry in entries:
-            if not entry.lower().find(query.lower()) == -1:
-                results.append(entry)
+        for title in entries:
+            # full match
+            if title.lower() == query.lower():
+                return HttpResponseRedirect(reverse("entry", kwargs={"title":title}))
+    
+            # partial match
+            if not title.lower().find(query.lower()) == -1:
+                results.append(title)
     
         return render(request, "encyclopedia/search.html", {
                 "query":query,
