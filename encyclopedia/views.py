@@ -1,13 +1,23 @@
+from django.http import request
 from encyclopedia.util import list_entries
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from markdown2 import Markdown
+from random import randint
 
 
 from . import util
 
 markdowner = Markdown()
+
+
+def random(request):
+    entries = list_entries()
+    title = entries[randint(0, len(entries)-1)]
+
+    return HttpResponseRedirect(reverse("entry", kwargs={"title":title}))
+
 
 def index(request):
     entries = util.list_entries()
