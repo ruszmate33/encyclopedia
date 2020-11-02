@@ -6,9 +6,24 @@ from markdown2 import Markdown
 from random import randint
 
 from . import util
-from .forms import NewPageForm
+from .forms import NewPageForm, EditPageForm
 
 markdowner = Markdown()
+
+def editPage(request, title):
+    if request.method == "POST":
+        content = request.POST.get('entry', None)
+        util.save_entry(title, content)
+
+        return HttpResponseRedirect(reverse("entry", kwargs={"title":title}))
+    else:
+        entry = util.get_entry(title)
+        editPageForm = EditPageForm({'entry':entry})
+        
+        return render(request, "encyclopedia/edit.html", {
+            "title": title,
+            "form": editPageForm, 
+        })
 
 def createNewPage(request):
     if request.method == "POST":

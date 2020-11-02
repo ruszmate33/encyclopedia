@@ -1,5 +1,8 @@
 from django import forms
 
+class EditPageForm(forms.Form):
+    entry = forms.CharField(widget=forms.Textarea())
+
 class NewPageForm(forms.Form):
     title = forms.CharField(label="title", 
                             required=True, 

@@ -9,9 +9,12 @@
         <h1>{{ title }}</h1>
         <p>Sorry, entry not found.</p>
     {% else %}
-       
-            {{ entry|safe }}
-        
+        {{ entry|safe }}
     {% endif %} 
+    <div>
+        <a href="{% url 'editPage' title %}">
+            <li>Edit page</li>
+        </a>
+    </div>
 
 {% endblock %}
