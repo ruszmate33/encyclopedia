@@ -13,7 +13,7 @@
     {% if form %}
     <form action="{% url 'editPage' title %}" method="post">
         {% csrf_token %}
-        {{ form|safe }}
+        {{ form.as_p }}
         <button type="submit">Edit page</button>
     </form>
     {% endif %}

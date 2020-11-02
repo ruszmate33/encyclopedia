@@ -11,6 +11,6 @@ class NewPageForm(forms.Form):
                             ))
     entry = forms.CharField(widget=forms.Textarea(attrs={
                                 "rows":5, 
-                                "cols":5,
-                                "placeholder":"Write entry here in markdown",}))
+                                "cols":3,
+                                "placeholder":"Write the entry here in markdown",}))
     # entry = forms.CharField(widget=forms.Textarea())
