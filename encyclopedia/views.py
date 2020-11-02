@@ -2,10 +2,12 @@ from encyclopedia.util import list_entries
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from markdown2 import Markdown
 
 
 from . import util
 
+markdowner = Markdown()
 
 def index(request):
     entries = util.list_entries()
@@ -17,9 +19,11 @@ def index(request):
 
 def entry(request, title):
     entry = util.get_entry(title)
-    if entry == None:
+    if entry:
+        entry = markdowner.convert(entry)
+    else:
         title = f"Not found: {title}"
-    
+
     return render(request, "encyclopedia/entry.html", {
         "title": title,
         "entry": entry,
